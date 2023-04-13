@@ -14,7 +14,7 @@ const Users = () => {
     return <h2>Loading...</h2>;
   }
 
-  if (error !== undefined) {
+  if (error) {
     <div>
       <h2>Oops. Something went wrong, please try again!</h2>
       <p>{error}</p>
@@ -24,7 +24,7 @@ const Users = () => {
   return (
     <section>
       <h2>My users</h2>
-      {users.map((user) => (
+      {users ? users.map((user) => (
         <div key={user.name.title}>
           <p>
             {user.name.first}
@@ -32,7 +32,7 @@ const Users = () => {
             {user.name.last}
           </p>
         </div>
-      ))}
+      )) : <h3>No data</h3>}
     </section>
   );
 };
