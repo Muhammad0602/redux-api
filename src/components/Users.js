@@ -4,11 +4,11 @@ import { getUsers } from '../redux/users/userSlice';
 
 const Users = () => {
   const dispatch = useDispatch();
-  const { users, isLoading, error } = useSelector((state) => state.users);
+  const { users, isLoading, error } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -25,14 +25,14 @@ const Users = () => {
     <section>
       <h2>My users</h2>
       {users ? users.map((user) => (
-        <div key={user.name.title}>
+        <div key={user.phone}>
           <p>
             {user.name.first}
             {' '}
             {user.name.last}
           </p>
         </div>
-      )) : <h3>No data</h3>}
+      )) : <p>No data</p>}
     </section>
   );
 };
