@@ -12,7 +12,9 @@ const initialState = {
 export const getUsers = createAsyncThunk('users/getUsers', async () => {
   try {
     const response = await axios.get(URL);
+    console.log(response);
     const { data } = response;
+    console.log("data", data);
     return data.results;
   } catch (err) {
     return err.message;
@@ -22,13 +24,14 @@ export const getUsers = createAsyncThunk('users/getUsers', async () => {
 const users = createSlice({
   name: 'users',
   initialState,
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder
       .addCase(getUsers.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getUsers.fulfilled, (state, action) => {
-        state.isLoading = false;
+        console.log("action",action)
+        state.isLoading = false; 
         state.users = action.payload;
       })
       .addCase(getUsers.rejected, (state, action) => {

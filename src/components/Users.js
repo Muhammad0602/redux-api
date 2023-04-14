@@ -4,17 +4,17 @@ import { getUsers } from '../redux/users/userSlice';
 
 const Users = () => {
   const dispatch = useDispatch();
-  const { users, isLoading, error } = useSelector((state) => state.users);
+  const { users, isLoading, error } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
 
-  if (error !== undefined) {
+  if (error) {
     <div>
       <h2>Oops. Something went wrong, please try again!</h2>
       <p>{error}</p>
@@ -24,15 +24,15 @@ const Users = () => {
   return (
     <section>
       <h2>My users</h2>
-      {users.map((user) => (
-        <div key={user.name.title}>
+      {users ? users.map((user) => (
+        <div key={user.phone}>
           <p>
             {user.name.first}
             {' '}
             {user.name.last}
           </p>
         </div>
-      ))}
+      )) : <p>No data</p>}
     </section>
   );
 };
